@@ -1,1 +1,1 @@
-# stepik_training
+# Repository for stepik training
