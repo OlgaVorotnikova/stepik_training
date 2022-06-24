@@ -1,32 +1,22 @@
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
 import time
-import math
-
-
-def calc(x):
-    return str(math.log(abs(12*math.sin(int(x)))))
 
 
 try:
-    link = "http://suninjuly.github.io/get_attribute.html"
+    link = "http://suninjuly.github.io/selects1.html"
+    link2 = "http://suninjuly.github.io/selects2.html"
     browser = webdriver.Chrome()
-    browser.get(link)
+    browser.get(link2)
 
-    x_element = browser.find_element_by_id("treasure")
-    x = x_element.get_attribute("valuex")
-    y = calc(x)
+    num1 = browser.find_element(By.ID, "num1").text
+    num2 = browser.find_element(By.ID, "num2").text
+    s = int(num1) + int(num2)
 
-    input1 = browser.find_element_by_id("answer")
-    input1.send_keys(y)
+    select = Select(browser.find_element(By.TAG_NAME, "select"))
+    select.select_by_visible_text(str(s))  # ищем элемент с текстом как сумма чисел
 
-    #radiobutton
-    option1 = browser.find_element_by_id("robotsRule")
-    option1.click()
-    #checkbox
-    option2 = browser.find_element_by_id("robotCheckbox")
-    option2.click()
-
-    # Отправляем заполненную форму
     button = browser.find_element_by_css_selector("button.btn")
     button.click()
 

@@ -9,15 +9,17 @@ def calc(x):
 
 
 try:
-    link = "http://suninjuly.github.io/alert_accept.html"
+    link = "http://suninjuly.github.io/redirect_accept.html"
     browser = webdriver.Chrome()
     browser.get(link)
 
     button1 = browser.find_element(By.TAG_NAME, "button")
     button1.click()
 
-    confirm = browser.switch_to.alert
-    confirm.accept()
+    new_window = browser.window_handles[1]
+    first_window = browser.window_handles[0]
+
+    browser.switch_to.window(new_window)
 
     x = browser.find_element(By.ID, "input_value").text
     y = calc(x)

@@ -8,12 +8,13 @@ def calc(x):
 
 
 try:
-    link = "http://suninjuly.github.io/math.html"
+    link = "http://suninjuly.github.io/get_attribute.html"
     browser = webdriver.Chrome()
     browser.get(link)
 
-    x_element = browser.find_element_by_id("input_value")
-    x = x_element.text
+    x_element = browser.find_element_by_id("treasure")
+    x = x_element.get_attribute("valuex")
+    print(x)
     y = calc(x)
 
     input1 = browser.find_element_by_id("answer")

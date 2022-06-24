@@ -1,37 +1,30 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
-import math
-
-
-def calc(x):
-    return str(math.log(abs(12*math.sin(int(x)))))
+import os
 
 
 try:
-    link = "http://SunInJuly.github.io/execute_script.html"
+    link = "http://suninjuly.github.io/file_input.html"
     browser = webdriver.Chrome()
     browser.get(link)
 
-    x = browser.find_element(By.ID, "input_value").text
-    y = calc(x)
+    # заполняем форму
+    firstname = browser.find_element(By.NAME, "firstname")
+    firstname.send_keys("Olga")
+    lastname = browser.find_element(By.NAME, "lastname")
+    lastname.send_keys("V")
+    email = browser.find_element(By.NAME, "email")
+    email.send_keys("O@m.ru")
 
-    input1 = browser.find_element_by_id("answer")
-    input1.send_keys(y)
-
-    # скроллим до button
-    #    button = browser.find_element_by_css_selector("button.btn")
-    button = browser.find_element(By.TAG_NAME, "button")
-    browser.execute_script("return arguments[0].scrollIntoView(true);", button)
-
-    #radiobutton
-    option1 = browser.find_element_by_id("robotsRule")
-    option1.click()
-    #checkbox
-    option2 = browser.find_element_by_id("robotCheckbox")
-    option2.click()
+    # загружаем файл
+    current_dir = os.path.abspath(os.path.dirname(__file__))  # получаем путь к директории текущего исполняемого файла
+    file_path = os.path.join(current_dir, 'file2.2.8.txt')  # добавляем к этому пути имя файла
+    element = browser.find_element(By.ID, "file")
+    element.send_keys(file_path)
 
     # Отправляем заполненную форму
+    button = browser.find_element(By.TAG_NAME, "button")
     button.click()
 
 finally:
